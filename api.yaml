@@ -1,3 +1,100 @@
-swagger: "2.0"
+swagger: '2.0'
+
+################################################################################
+#                              API Information                                 #
+################################################################################
 info:
+  version: "v1"
+  title: REST API for 'Credit card App'
   description: "This API manage the promotions of the customers."
+basePath: /api
+
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  /credit_cards:
+    get:
+      summary: List all credit cards
+      produces:
+        - application/json
+      responses:
+        200:
+          description: An array with all credit cards.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/credit_card'
+
+
+
+  /credit_cards/{id}:
+    get:
+      summary: Lookup a specific credit card
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: number
+          description: The id of the credit card you want to lookup.
+          required: true
+      responses:
+        200:
+          description: An array with all TC.
+          schema:
+            $ref: '#/definitions/credit_card'
+
+    put:
+      summary: Update an TC
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: number
+          description: The id of the TC you want to update.
+          required: true
+        - in: body
+          name: TC
+          description: The TC you want update with.
+          required: true
+          schema:
+            $ref: '#/definitions/credit_card'
+      responses:
+        200:
+          description: The TC has been successfully updated.
+          schema:
+            $ref: '#/definitions/Message'
+
+
+
+
+
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  credit_card:
+    type: object
+    properties:
+      id:
+        type: number
+        description: A unique identifier of the credit card.
+      holder:
+        type: string
+        description: Owner of the credit card.
+      balance:
+        type: number
+        description: Account balance.
+
+
+  Message:
+    type: object
+    properties:
+      message:
+        type: string
+        description: A response message from the credit card
