@@ -4,10 +4,9 @@ swagger: '2.0'
 #                              API Information                                 #
 ################################################################################
 info:
-  version: "v1"
+  version: ""
   title: REST API for 'Credit card App'
-  description: "This API manage the promotions of the customers."
-basePath: /api
+basePath: /credit_cards
 
 ################################################################################
 #                                           Paths                              #
@@ -25,6 +24,11 @@ paths:
             type: array
             items:
               $ref: '#/definitions/credit_card'
+        500:
+          description: Unexpected error.
+        404:
+          description: The request was not found.
+
 
 
 
@@ -44,6 +48,10 @@ paths:
           description: An array with all TC.
           schema:
             $ref: '#/definitions/credit_card'
+        500:
+          description: Unexpected error.
+        404:
+          description: A credit card with the specified ID was not found.
 
     put:
       summary: Update an TC
@@ -67,7 +75,12 @@ paths:
         200:
           description: The TC has been successfully updated.
           schema:
-            $ref: '#/definitions/Message'
+            $ref: '#/definitions/put_credit_card'
+        500:
+          description: Unexpected error.
+        404:
+          description: A credit card with the specified ID was not found.
+
 
 
 
@@ -92,9 +105,18 @@ definitions:
         description: Account balance.
 
 
-  Message:
+  put_credit_card:
     type: object
     properties:
       message:
         type: string
         description: A response message from the credit card
+      id:
+        type: number
+        description: A unique identifier of the credit card.
+      holder:
+        type: string
+        description: Owner of the credit card.
+      balance:
+        type: number
+        description: Account balance.
